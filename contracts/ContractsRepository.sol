@@ -42,6 +42,12 @@ contract ContractsRepository is IContractsRepostiory, IAccessControlHolder {
         bytes32 contractId,
         address contractAddress
     ) external override onlyRepositoryOwner {
+        if (contractId == bytes32(0)) {
+            revert ZeroIdentifier();
+        }
+        if (contractAddress == address(0)) {
+            revert ZeroContractAddress();
+        }
         repository[contractId] = contractAddress;
     }
 }

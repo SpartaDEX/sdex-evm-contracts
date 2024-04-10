@@ -4,6 +4,8 @@ pragma solidity 0.8.18;
 interface IContractsRepostiory {
     error ContractDoesNotExist();
     error OnlyRepositoryOnwer();
+    error ZeroContractAddress();
+    error ZeroIdentifier();
 
     function getContract(bytes32 contractId) external view returns (address);
 
