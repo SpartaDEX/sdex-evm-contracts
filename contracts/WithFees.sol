@@ -3,12 +3,19 @@ pragma solidity 0.8.18;
 
 import {IAccessControlHolder, IAccessControl} from "./IAccessControlHolder.sol";
 import {IWithFees} from "./IWithFees.sol";
+import {ZeroAmountGuard} from "./ZeroAmountGuard.sol";
+import {ZeroAddressGuard} from "./ZeroAddressGuard.sol";
 
 /**
  * @title WithFees
  * @notice This contract is responsible for managing, calculating and transferring fees.
  */
-contract WithFees is IAccessControlHolder, IWithFees {
+contract WithFees is
+    IAccessControlHolder,
+    IWithFees,
+    ZeroAddressGuard,
+    ZeroAmountGuard
+{
     address public immutable override treasury;
     uint256 public immutable override fees;
     IAccessControl public immutable override acl;
@@ -36,7 +43,15 @@ contract WithFees is IAccessControlHolder, IWithFees {
         _;
     }
 
-    constructor(IAccessControl acl_, address treasury_, uint256 value_) {
+    constructor(
+        IAccessControl acl_,
+        address treasury_,
+        uint256 value_
+    )
+        notZeroAmount(value_)
+        notZeroAddress(address(acl_))
+        notZeroAddress(treasury_)
+    {
         acl = acl_;
         treasury = treasury_;
         fees = value_;
