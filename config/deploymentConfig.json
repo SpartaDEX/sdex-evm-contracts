@@ -1,0 +1,11 @@
+{
+  "admin": "",
+  "tokenWallet": "",
+  "rawFees": "",
+  "treasury": "",
+  "wNative": "",
+  "start": 0,
+  "end": 0,
+  "amountRaw": "0x0",
+  "env": "develop"
+}
