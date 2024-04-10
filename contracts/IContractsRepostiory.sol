@@ -6,6 +6,9 @@ interface IContractsRepostiory {
     error OnlyRepositoryOnwer();
     error ZeroContractAddress();
     error ZeroIdentifier();
+    error OwnAddress();
+
+    event ContractRegistered(bytes32 indexed id, address addr);
 
     function getContract(bytes32 contractId) external view returns (address);
 
