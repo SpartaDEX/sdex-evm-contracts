@@ -47,7 +47,11 @@ contract WithFees is
         IAccessControl acl_,
         address treasury_,
         uint256 value_
-    ) notZeroAmount(value_) notZeroAddress(treasury_) {
+    )
+        notZeroAmount(value_)
+        notZeroAddress(address(acl_))
+        notZeroAddress(treasury_)
+    {
         acl = acl_;
         treasury = treasury_;
         fees = value_;
