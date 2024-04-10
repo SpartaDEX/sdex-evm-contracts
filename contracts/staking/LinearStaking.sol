@@ -13,14 +13,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol";
 
-contract LinearStaking is
-    ILinearStaking,
-    ToInitialize,
-    Ownable,
-    WithFees,
-    ZeroAmountGuard,
-    ZeroAddressGuard
-{
+contract LinearStaking is ILinearStaking, ToInitialize, Ownable, WithFees {
     using SafeERC20 for IERC20;
 
     uint256 constant UNLOCK_TIMESTAMP_MINIMUM_DIFF = 30 days;

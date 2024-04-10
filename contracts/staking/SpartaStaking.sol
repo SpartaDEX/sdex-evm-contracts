@@ -20,9 +20,7 @@ contract SpartaStaking is
     IPredifinedUnstakingPeriodStaking,
     ToInitialize,
     Ownable,
-    WithFees,
-    ZeroAddressGuard,
-    ZeroAmountGuard
+    WithFees
 {
     using SafeERC20 for IERC20;
 
