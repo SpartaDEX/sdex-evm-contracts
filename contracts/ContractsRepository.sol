@@ -7,7 +7,7 @@ import {IContractsRepostiory} from "./IContractsRepostiory.sol";
 contract ContractsRepository is IContractsRepostiory, IAccessControlHolder {
     bytes32 public constant REPOSITORY_OWNER = keccak256("REPOSITORY_OWNER");
 
-    IAccessControl public override acl;
+    IAccessControl public immutable override acl;
     mapping(bytes32 => address) internal repository;
 
     modifier onlyRepositoryOwner() {
@@ -42,6 +42,17 @@ contract ContractsRepository is IContractsRepostiory, IAccessControlHolder {
         bytes32 contractId,
         address contractAddress
     ) external override onlyRepositoryOwner {
+        if (contractId == bytes32(0)) {
+            revert ZeroIdentifier();
+        }
+        if (contractAddress == address(0)) {
+            revert ZeroContractAddress();
+        }
+        if (contractAddress == address(this)) {
+            revert OwnAddress();
+        }
         repository[contractId] = contractAddress;
+
+        emit ContractRegistered(contractId, contractAddress);
     }
 }
