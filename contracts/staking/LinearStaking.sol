@@ -67,7 +67,13 @@ contract LinearStaking is
         IAccessControl acl_,
         address treasury_,
         uint256 fees_
-    ) Ownable() WithFees(acl_, treasury_, fees_) {
+    )
+        notZeroAddress(address(stakingToken_))
+        notZeroAddress(address(rewardToken_))
+        notZeroAddress(address(acl_))
+        Ownable()
+        WithFees(acl_, treasury_, fees_)
+    {
         stakingToken = stakingToken_;
         rewardToken = rewardToken_;
     }
